@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional JS SPICE Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>⚡ JS SPICE Simulator</h1>
+            <p>Advanced MNA Engine with Professional Waveform Analysis</p>
+        </header>
+
+        <main class="main-content">
+            <div class="panel input-panel">
+                <h3>Circuit Configuration</h3>
+                
+                <div class="selection-group">
+                    <label for="circuit-selector">Select Topic & Example:</label>
+                    <select id="circuit-selector">
+                        <optgroup label="RC Circuits (Transient)">
+                            <option value="rc_basic">Basic RC Charge</option>
+                            <option value="rc_highpass">RC High Pass Filter</option>
+                            <option value="rc_lowpass">RC Low Pass Filter</option>
+                            <option value="rc_double">Double Stage RC</option>
+                            <option value="rc_parallel">Parallel RC Discharge</option>
+                        </optgroup>
+
+                        <optgroup label="DC Analysis">
+                            <option value="res_simple">Simple Resistor</option>
+                            <option value="res_series">Series Resistors</option>
+                            <option value="res_parallel">Parallel Resistors</option>
+                            <option value="res_divider">Voltage Divider</option>
+                            <option value="res_bridge">Wheatstone Bridge</option>
+                        </optgroup>
+
+                        <optgroup label="AC Sine Waveforms">
+                            <option value="sine_basic">60Hz Sine Input</option>
+                            <option value="sine_phase">RC Phase Shifter</option>
+                            <option value="sine_bridge">AC Bridge Circuit</option>
+                            <option value="sine_filter">Twin-T Notch Filter</option>
+                            <option value="sine_multi">Dual Sine Summation</option>
+                        </optgroup>
+
+                        <optgroup label="Pulse & Square Waves">
+                            <option value="pulse_square">1kHz Square Wave</option>
+                            <option value="pulse_pwm">20% Duty Cycle PWM</option>
+                            <option value="pulse_spike">Narrow Trigger Pulse</option>
+                            <option value="pulse_ramp">Sawtooth Generator</option>
+                            <option value="pulse_clock">Logic Clock Signal</option>
+                        </optgroup>
+
+                        <optgroup label="Component Modeling (.model)">
+                            <option value="mod_diode">Diode Switching (1N4148)</option>
+                            <option value="mod_zener">Zener Regulator (5.1V)</option>
+                            <option value="mod_npn">BJT Switch (2N2222)</option>
+                            <option value="mod_mosfet">NMOS Power Stage</option>
+                            <option value="mod_resistor">Precision Resistor Model</option>
+                        </optgroup>
+
+                        <optgroup label="Advanced Networks">
+                            <option value="adv_bridge">Bridge Sensitivity</option>
+                            <option value="adv_ladder">R-2R Ladder Network</option>
+                            <option value="adv_mesh">3-Loop Mesh Analysis</option>
+                            <option value="adv_integration">Op-Amp Integrator Appx</option>
+                            <option value="adv_attenuator">Pi-Network Attenuator</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <textarea id="netlist-input" placeholder="SPICE netlist..."></textarea>
+                <button id="run-btn">⚡ Run Simulation</button>
+                <div id="output-log" class="log-box">Ready.</div>
+            </div>
+
+            <div class="panel output-panel">
+                <h3>Professional Waveform</h3>
+                <div class="chart-container">
+                    <canvas id="waveform-chart"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="spice.js"></script>
+</body>
+</html>
