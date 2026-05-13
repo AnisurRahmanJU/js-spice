@@ -148,40 +148,47 @@ class SpiceSimulator {
 
 // 30 EXAMPLES (RC, SINE, PULSE, .MODEL, ADVANCED)
 const library = {
-    // 5 RC Transient
-    rc_basic: "* Basic RC\nV1 1 0 5\nR1 1 2 1k\nC1 2 0 1m\n.tran 0.05 5",
-    rc_highpass: "* RC High Pass\nV1 1 0 10\nC1 1 2 1u\nR1 2 0 1k\n.tran 0.0001 0.01",
-    rc_lowpass: "* RC Low Pass\nV1 1 0 10\nR1 1 2 1k\nC1 2 0 1u\n.tran 0.0001 0.01",
-    rc_double: "* Double RC\nV1 1 0 10\nR1 1 2 1k\nC1 2 0 1m\nR2 2 3 1k\nC2 3 0 1m\n.tran 0.1 10",
-    rc_parallel: "* Parallel RC\nV1 1 0 0\nR1 1 2 1k\nC1 2 0 1m\nR2 2 0 2k\n.tran 0.1 5",
+    // --- 5 RC Circuits (Transient) ---
+    rc_basic: "* Basic RC Charge\nV1 1 0 5\nR1 1 2 1k\nC1 2 0 1m\n.tran 0.05 5",
+    rc_highpass: "* RC High Pass Filter\nV1 1 0 10\nC1 1 2 1u\nR1 2 0 1k\n.tran 0.0001 0.01",
+    rc_lowpass: "* RC Low Pass Filter\nV1 1 0 10\nR1 1 2 1k\nC1 2 0 1u\n.tran 0.0001 0.01",
+    rc_double: "* Double Stage RC\nV1 1 0 10\nR1 1 2 1k\nC1 2 0 1m\nR2 2 3 1k\nC2 3 0 1m\n.tran 0.1 10",
+    rc_parallel: "* Parallel RC Discharge\nV1 1 0 0\nR1 1 2 1k\nC1 2 0 1m\nR2 2 0 2k\n.tran 0.1 5",
 
-    // 5 Sine Wave (Sine looks like Sine now)
-    sine_basic: "* 50Hz Sine Wave\nV1 1 0 SINE(0 5 50)\nR1 1 0 1k\n.tran 0.001 0.1",
-    sine_fast: "* 1kHz Sine Wave\nV1 1 0 SINE(0 10 1000)\nR1 1 0 1k\n.tran 0.00005 0.005",
-    sine_offset: "* Sine with DC Offset\nV1 1 0 SINE(2 5 50)\nR1 1 0 1k\n.tran 0.001 0.1",
-    sine_rc: "* AC through RC\nV1 1 0 SINE(0 10 60)\nR1 1 2 1k\nC1 2 0 2.65u\n.tran 0.0005 0.05",
-    sine_mix: "* Two AC Sources Sum\nV1 1 0 SINE(0 5 50)\nV2 2 0 SINE(0 2 150)\nR1 1 3 1k\nR2 2 3 1k\n.tran 0.0005 0.1",
-
-    // 5 Pulse/Square Waves
-    pulse_square: "* Square Wave 100Hz\nV1 1 0 PULSE(0 5 0 0 0 5m 10m)\nR1 1 0 1k\n.tran 0.0001 0.05",
-    pulse_pwm: "* PWM 20% Duty\nV1 1 0 PULSE(0 5 0 0 0 2m 10m)\nR1 1 0 1k\n.tran 0.0001 0.05",
-    pulse_fast: "* Fast Clock 1kHz\nV1 1 0 PULSE(0 3.3 0 0 0 0.5m 1m)\nR1 1 0 1k\n.tran 0.00001 0.005",
-    pulse_trigger: "* Narrow Trigger\nV1 1 0 PULSE(0 5 1m 0 0 0.1m 5m)\nR1 1 2 100\nC1 2 0 1u\n.tran 0.00005 0.02",
-    pulse_delay: "* Delayed Square\nV1 1 0 PULSE(0 5 5m 0 0 5m 20m)\nR1 1 0 1k\n.tran 0.0001 0.05",
-
-    // 5 .Model Examples
-    mod_diode: "* Diode 1N4148\n.model D1N4148 D\nD1 1 2 D1N4148\nV1 1 0 5\nR1 2 0 1k\n.tran 0.1 1",
-    mod_zener: "* Zener 5.1V\n.model DZ5V1 D\nD1 0 1 DZ5V1\nV1 2 0 10\nR1 2 1 470\n.tran 0.1 1",
-    mod_npn: "* BJT NPN Model\n.model Q2N NPN\nQ1 2 1 0 Q2N\nV1 2 0 5\n.tran 0.1 1",
-    mod_mos: "* NMOS Model\n.model M1 NMOS\nM1 2 1 0 0 M1\nV1 2 0 10\n.tran 0.1 1",
-    mod_pnp: "* PNP Transistor\n.model Q2P PNP\nQ1 2 1 0 Q2P\nV1 2 0 5\n.tran 0.1 1",
-
-    // 5 DC / Advanced
-    res_simple: "* Simple DC\nV1 1 0 10\nR1 1 0 1k\n.tran 0.1 1",
+    // --- 5 DC Analysis ---
+    res_simple: "* Simple Resistor\nV1 1 0 10\nR1 1 0 1k\n.tran 0.1 1",
+    res_series: "* Series Resistors\nV1 1 0 12\nR1 1 2 1k\nR2 2 0 2k\n.tran 0.1 1",
+    res_parallel: "* Parallel Resistors\nV1 1 0 5\nR1 1 0 100\nR2 1 0 100\n.tran 0.1 1",
+    res_divider: "* Voltage Divider\nV1 1 0 15\nR1 1 2 10k\nR2 2 0 5k\n.tran 0.1 1",
     res_bridge: "* Wheatstone Bridge\nV1 1 0 10\nR1 1 2 1k\nR2 1 3 1k\nR3 2 0 1k\nR4 3 0 1.2k\nR5 2 3 500\n.tran 0.1 1",
-    adv_ladder: "* R-2R Ladder\nV1 1 0 10\nR1 1 2 1k\nR2 2 0 2k\nR3 2 3 1k\nR4 3 0 2k\n.tran 0.1 1",
-    adv_mesh: "* Mesh Analysis\nV1 1 0 20\nR1 1 2 10\nR2 2 3 20\nR3 3 0 30\n.tran 0.1 1",
-    adv_multi: "* Multi Source DC\nV1 1 0 12\nV2 2 0 5\nR1 1 3 1k\nR2 2 3 1k\nR3 3 0 500\n.tran 0.1 1"
+
+    // --- 5 AC Sine Waveforms ---
+    sine_basic: "* 60Hz Sine Input\nV1 1 0 SINE(0 10 60)\nR1 1 0 1k\n.tran 0.001 0.1",
+    sine_phase: "* RC Phase Shifter\nV1 1 0 SINE(0 5 1000)\nR1 1 2 1k\nC1 2 0 0.16u\n.tran 0.0001 0.005",
+    sine_bridge: "* AC Bridge Circuit\nV1 1 0 SINE(0 12 50)\nR1 1 2 1k\nR2 1 3 1k\nC1 2 0 3.18u\nR3 3 0 1k\n.tran 0.001 0.1",
+    sine_filter: "* Twin-T Notch Filter\nV1 1 0 SINE(0 5 60)\nR1 1 2 2.6k\nR2 2 3 2.6k\nC1 1 4 1u\nC2 4 3 1u\n.tran 0.001 0.2",
+    sine_multi: "* Dual Sine Summation\nV1 1 0 SINE(0 5 50)\nV2 2 0 SINE(0 2 150)\nR1 1 3 1k\nR2 2 3 1k\n.tran 0.001 0.1",
+
+    // --- 5 Pulse & Square Waves ---
+    pulse_square: "* 1kHz Square Wave\nV1 1 0 PULSE(0 5 0 0 0 0.5m 1m)\nR1 1 0 1k\n.tran 0.0001 0.005",
+    pulse_pwm: "* 20% Duty Cycle PWM\nV1 1 0 PULSE(0 10 0 0 0 0.2m 1m)\nR1 1 0 1k\n.tran 0.0001 0.005",
+    pulse_spike: "* Narrow Trigger Pulse\nV1 1 0 PULSE(0 5 1m 0 0 0.1m 10m)\nR1 1 2 100\nC1 2 0 1u\n.tran 0.0001 0.02",
+    pulse_ramp: "* Sawtooth Generator\nV1 1 0 PULSE(0 5 0 5m 0 0 5.1m)\nR1 1 0 1k\n.tran 0.0001 0.02",
+    pulse_clock: "* Logic Clock Signal\nV1 1 0 PULSE(0 3.3 0 0 0 50u 100u)\nR1 1 0 50\n.tran 1u 500u",
+
+    // --- 5 Component Modeling (.model) ---
+    mod_diode: "* Diode Switching (1N4148)\n.model D1N4148 D\nD1 1 2 D1N4148\nV1 1 0 5\nR1 2 0 1k\n.tran 0.1 1",
+    mod_zener: "* Zener Regulator (5.1V)\n.model DZ5V1 D(Bv=5.1)\nD1 0 1 DZ5V1\nV1 2 0 10\nR1 2 1 470\n.tran 0.1 1",
+    mod_npn: "* BJT Switch (2N2222)\n.model Q2N2222 NPN\nQ1 2 1 0 Q2N2222\nV1 2 0 12\nR1 2 3 1k\nV2 1 0 5\n.tran 0.1 1",
+    mod_mosfet: "* NMOS Power Stage\n.model MOD1 NMOS\nM1 2 1 0 0 MOD1\nV1 2 0 24\nR1 2 3 10\n.tran 0.1 1",
+    mod_resistor: "* Precision Resistor Model\n.model RPREC R(R=1k)\nR1 1 0 RPREC\nV1 1 0 10\n.tran 0.1 1",
+
+    // --- 5 Advanced Networks ---
+    adv_bridge: "* Bridge Sensitivity\nV1 1 0 10\nR1 1 2 1000\nR2 1 3 1000\nR3 2 0 1000\nR4 3 0 1005\nR5 2 3 50\n.tran 0.1 1",
+    adv_ladder: "* R-2R Ladder Network\nV1 1 0 16\nR1 1 2 1k\nR2 2 0 2k\nR3 2 3 1k\nR4 3 0 2k\nR5 3 4 1k\nR6 4 0 2k\n.tran 0.1 1",
+    adv_mesh: "* 3-Loop Mesh Analysis\nV1 1 0 20\nR1 1 2 10\nR2 2 3 20\nR3 3 0 30\nR4 2 0 40\nR5 1 3 50\n.tran 0.1 1",
+    adv_integration: "* Op-Amp Integrator Appx\nV1 1 0 5\nR1 1 2 10k\nC1 2 0 100u\nRload 2 0 1meg\n.tran 0.1 10",
+    adv_attenuator: "* Pi-Network Attenuator\nV1 1 0 10\nR1 1 2 100\nR2 1 0 50\nR3 2 0 50\n.tran 0.1 1"
 };
 
 let chartInstance = null;
