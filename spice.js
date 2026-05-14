@@ -239,19 +239,6 @@ const library = {
     pulse_ramp: "* Sawtooth Generator\nV1 1 0 PULSE(0 5 0 5m 0 0 5.1m)\nR1 1 0 1k\n.tran 0.0001 0.02",
     pulse_clock: "* Logic Clock Signal\nV1 1 0 PULSE(0 3.3 0 0 0 50u 100u)\nR1 1 0 50\n.tran 1u 500u",
 
-    // --- 5 Component Modeling (.model) ---
-    mod_diode: "* Diode Switching (1N4148)\n.model D1N4148 D\nD1 1 2 D1N4148\nV1 1 0 5\nR1 2 0 1k\n.tran 0.1 1",
-    mod_zener: "* Zener Regulator (5.1V)\n.model DZ5V1 D(Bv=5.1)\nD1 0 1 DZ5V1\nV1 2 0 10\nR1 2 1 470\n.tran 0.1 1",
-    mod_npn: "* BJT Switch (2N2222)\n.model Q2N2222 NPN\nQ1 2 1 0 Q2N2222\nV1 2 0 12\nR1 2 3 1k\nV2 1 0 5\n.tran 0.1 1",
-    mod_mosfet: "* NMOS Power Stage\n.model MOD1 NMOS\nM1 2 1 0 0 MOD1\nV1 2 0 24\nR1 2 3 10\n.tran 0.1 1",
-    mod_resistor: "* Precision Resistor Model\n.model RPREC R(R=1k)\nR1 1 0 RPREC\nV1 1 0 10\n.tran 0.1 1",
-
-    // --- 5 Advanced Networks ---
-    adv_bridge: "* Bridge Sensitivity\nV1 1 0 10\nR1 1 2 1000\nR2 1 3 1000\nR3 2 0 1000\nR4 3 0 1005\nR5 2 3 50\n.tran 0.1 1",
-    adv_ladder: "* R-2R Ladder Network\nV1 1 0 16\nR1 1 2 1k\nR2 2 0 2k\nR3 2 3 1k\nR4 3 0 2k\nR5 3 4 1k\nR6 4 0 2k\n.tran 0.1 1",
-    adv_mesh: "* 3-Loop Mesh Analysis\nV1 1 0 20\nR1 1 2 10\nR2 2 3 20\nR3 3 0 30\nR4 2 0 40\nR5 1 3 50\n.tran 0.1 1",
-    adv_integration: "* Op-Amp Integrator Appx\nV1 1 0 5\nR1 1 2 10k\nC1 2 0 100u\nRload 2 0 1meg\n.tran 0.1 10",
-    adv_attenuator: "* Pi-Network Attenuator\nV1 1 0 10\nR1 1 2 100\nR2 1 0 50\nR3 2 0 50\n.tran 0.1 1"
 };
 
 // Application Global State
