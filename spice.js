@@ -209,7 +209,7 @@ class SpiceSimulator {
 /**
  * UI AND LIBRARY INTEGRATION
  */
-// 30 EXAMPLES (RC, SINE, PULSE, .MODEL, ADVANCED)
+// 20 EXAMPLES (RC, SINE, PULSE, .MODEL, ADVANCED)
 const library = {
     // --- 5 RC Circuits (Transient) ---
     rc_basic: "* Basic RC Charge\nV1 1 0 5\nR1 1 2 1k\nC1 2 0 1m\n.tran 0.05 5",
