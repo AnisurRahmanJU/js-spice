@@ -250,13 +250,6 @@ function initApp() {
     const editor = document.getElementById('netlist-input');
     const runBtn = document.getElementById('run-btn');
 
-    // Populate Selector
-    Object.keys(library).forEach(key => {
-        const opt = document.createElement('option');
-        opt.value = key;
-        opt.innerText = key.replace('_', ' ').toUpperCase();
-        selector.appendChild(opt);
-    });
 
     selector.addEventListener('change', () => {
         editor.value = library[selector.value];
